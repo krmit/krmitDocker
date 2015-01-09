@@ -9,19 +9,7 @@ MAINTAINER Magnus Kronnäs
 RUN apt-get update && apt-get install -y \
 		nano
 		git
-
-################################################################
-
-#    >> Basic System Tools <<
- 
-RUN apt-get update && apt-get install -y \
 		htop
-		
-################################################################
-
-#    >> Basic Networking tools <<
-
-RUN apt-get update && apt-get install -y \
 		wget
 		
 ################################################################
