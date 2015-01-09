@@ -37,7 +37,14 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 ################################################################
 
 # Open up ssh port.
+
 EXPOSE 22
 
+#Make a empty file for a start script.
+RUN echo "" > start.sh
+RUN chmod 700 start.sh
+
 # Start the ssh deamon.
-CMD ["/usr/sbin/sshd", "-D"]
+RUN echo "/usr/sbin/sshd -D;" >> start.sh
+
+CMD ["start.sh"]
