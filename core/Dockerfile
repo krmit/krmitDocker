@@ -2,19 +2,53 @@ FROM debian:jessie
 #This dock file add system and networking programs.
 MAINTAINER Magnus Kronnäs
 
-#Basic apps
-RUN apt-get update && apt-get install -y \
-nano
+################################################################
 
-#Basic System tools
-RUN apt-get update && apt-get install -y \
-htop
+#    >> Basic apps <<
 
-# Basic Networking tools
 RUN apt-get update && apt-get install -y \
-		openssh-server \
+		nano
+
+################################################################
+
+#    >> Basic System Tools <<
+ 
+RUN apt-get update && apt-get install -y \
+		htop
+		
+################################################################
+
+#    >> Basic Networking tools <<
+
+RUN apt-get update && apt-get install -y \
 		wget
 		
+################################################################
 
-#Open up ssh port.
+#    >> SSH server <<
+
+RUN apt-get update && apt-get install -y openssh-server
+
+# Create a directory to be used by ssh deamon.
+RUN mkdir /var/run/sshd
+
+# Create a password for root user.
+RUN echo 'root:screencast' | chpasswd
+
+# Chnage ssh config to allow  
+RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+# SSH login fix. Otherwise user is kicked off after login FIXME!
+RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+
+# FIXME!
+ENV NOTVISIBLE "in users profile"
+RUN echo "export VISIBLE=now" >> /etc/profile
+
+################################################################
+
+# Open up ssh port.
 EXPOSE 22
+
+# Start the ssh deamon.
+CMD ["/usr/sbin/sshd", "-D"]
