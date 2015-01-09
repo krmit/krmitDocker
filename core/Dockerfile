@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
 
 #    >> SSH server <<
 
-RUN apt-get update && apt-get install -y openssh-server
+RUN apt-get install -y openssh-server
 
 # Create a directory to be used by ssh deamon.
 RUN mkdir /var/run/sshd
