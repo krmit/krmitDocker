@@ -7,9 +7,9 @@ MAINTAINER Magnus Kronnäs
 ################################################################
 
 RUN apt-get update && apt-get install -y \
-		nano
-		git
-		htop
+		nano \
+		git \
+		htop \
 		wget
 
 ################################################################
