@@ -11,14 +11,3 @@ RUN apt-get update && apt-get install -y \
 		git \
 		htop \
 		wget
-
-################################################################
-#       Create a start script.                                 #
-################################################################
-
-# Create an empty file to be our start script.
-RUN echo "" > start.sh
-RUN chmod 700 start.sh
-
-# Use our startup script every time someone start our dockers.
-CMD ["start.sh"]
