@@ -14,7 +14,7 @@ RUN apt-get install -y openssh-server
 RUN mkdir /var/run/sshd
 
 # Create a password for root user.
-RUN echo 'root:abc123' | chpasswd
+RUN echo 'root:asd123' | chpasswd
 
 # Chnage ssh config to allow  
 RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
