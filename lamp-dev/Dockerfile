@@ -15,7 +15,10 @@ ENV APACHE_RUN_GROUP www-data
 ENV APACHE_LOG_DIR /var/log/apache2
 
 # Create a mount point for all webpage
-VOLUME ["/var/www/html"]
+VOLUME ["/root/"]
+
+# Remove html directory so it could be replace with a symlink. 
+RUN rm -r /var/www/html
 
 ################################################################
 #        PHP lang                                              #
@@ -35,5 +38,6 @@ RUN apt-get install -y \
 EXPOSE 80
 
 # Start the ssh  && /usr/sbin/mysqld
+# The root mount point must contain a subfolder "www" for webcontent.
 # sshd and only it, since it is the last command, must be in the foreground. 
-CMD /usr/sbin/apache2ctl start && /usr/sbin/sshd -D
+CMD ln -s /root/www /var/www/html; /usr/sbin/apache2ctl start && /usr/sbin/sshd -D
